@@ -1,14 +1,15 @@
-import express, { Request, Response, NextFunction } from 'express'
-import multer from 'multer'
-import pinataSDK, { PinataPinOptions } from '@pinata/sdk'
-import dotenv from 'dotenv'
-import morgan from 'morgan'
-import helmet from 'helmet'
-import { validationResult, body } from 'express-validator'
-import fs from 'fs'
 import cors from 'cors'
-import swaggerUi from 'swagger-ui-express'
+import dotenv from 'dotenv'
+import express, { NextFunction, Request, Response } from 'express'
+import { body, validationResult } from 'express-validator'
+import fs from 'fs'
+import helmet from 'helmet'
+import morgan from 'morgan'
+import multer from 'multer'
 import swaggerJsdoc from 'swagger-jsdoc'
+import swaggerUi from 'swagger-ui-express'
+
+import pinataSDK, { PinataPinOptions } from '@pinata/sdk'
 
 dotenv.config()
 
@@ -21,7 +22,8 @@ app.use(helmet())
 app.use(morgan('dev'))
 
 const pinataJWTKey = process.env.PINATA_JWT
-const pinata = new pinataSDK({ pinataJWTKey: pinataJWTKey })
+// eslint-disable-next-line new-cap
+const pinata = new pinataSDK({ pinataJWTKey })
 const upload = multer({ dest: 'uploads/' })
 
 // Swagger setup
